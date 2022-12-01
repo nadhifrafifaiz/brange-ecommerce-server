@@ -1,13 +1,14 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import multer from 'multer'
-import helmet from 'helmet'
-import morgan from 'morgan'
-import path from 'path'
-import { fileURLToPath } from 'url'
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const multer = require('multer')
+const helmet = require('helmet')
+const morgan = require('morgan')
+const path = require('path')
+const { fileURLToPath } = require('url')
+const { authRouter } = require('./routers/index.js')
 
 dotenv.config()
 const app = express()
@@ -18,6 +19,8 @@ app.use(morgan('common'))
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors())
+
+app.use("/auth", authRouter)
 
 
 // MONGOOSE SETUP
